@@ -1,0 +1,48 @@
+enable
+configure terminal
+hostname SW5
+! secure switch access
+username gns3 privilege 15 secret gns3
+! enable new access control commands for TACACS+ auth
+aaa new-model
+tacacs server tacacs
+address ipv4 10.0.51.101
+key gns3
+exit
+! login authentication using tacacs+ if not local
+aaa authentication login default group tacacs+ local
+! exec mode authorization using tacacs+ if not local
+aaa authorization exec default group tacacs+ local
+! required for encryption use for remote access
+ip domain name netlab.com
+! allow only version 2 for SSH
+ip ssh version 2
+! required for SSHv2
+crypto key generate rsa modulus 2048
+! configure remote access
+line vty 0 4
+! allow only SSH
+transport input ssh
+! login using default method
+login authentication default
+exit
+spanning-tree mode mst
+spanning-tree mst 1 root primary
+spanning-tree mst configuration
+instance 1 vlan 20,30,51
+vtp version 3
+vtp domain netlab.com
+vtp mode server
+vlan 20
+name Staff
+vlan 30
+name Guests
+vlan 51
+name Management
+interface range GigabitEthernet0/0-3
+switchport trunk encapsulation dot1q
+switchport trunk allowed vlan 20,30,51
+switchport trunk native vlan 81
+switchport mode trunk
+end
+vtp primary

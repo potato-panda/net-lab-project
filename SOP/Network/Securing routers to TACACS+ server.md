@@ -21,6 +21,7 @@ configure terminal
 username <crendential username> privilege 15 secret <crendential password>
 crypto key generate rsa modulus 2048
 ip ssh version 2
+aaa new-model
 tacacs server <TACACS+ server name>
 address ipv4 <TACACS+ server ip address>
 key <pre-shared key>
