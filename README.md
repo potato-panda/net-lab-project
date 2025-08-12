@@ -44,6 +44,12 @@ A basic topology of a Windows Server based network. Implements routing and switc
 	- TACACS+ users:
 		- gns3 - gns3
 		- readonly - gns3
+4. **iSCSCITarget**
+  - 10.77.0.1/24
+  - gateway 10.77.0.11
+  - iSCSI
+   1. - iSCSI Virtual Disk: BlockStore
+		 	- iSCSI Target: blockstoretarget
 #### Routers
 - OSPFVv3 Area 1
 	- VRRP
@@ -81,3 +87,5 @@ A basic topology of a Windows Server based network. Implements routing and switc
 		3. Adjusted IP services and addressing according to these changes
 	2. Implemented access port security and root guard to secure Layer 2 networking
 	3. Added an isolated subnet for future implementation of secure storage
+- 08/11/2025
+  1. Converted Undefined host to iSCSITarget serving a iSCSI VD to LAB-PRIMARY
